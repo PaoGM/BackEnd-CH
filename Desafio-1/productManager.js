@@ -75,4 +75,7 @@ productos.addProduct({
 
 
 console.log(productos.getProducts());
+
 console.log(productos.getProductById(3));
+
+console.log(productos.getProductById(6));
