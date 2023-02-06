@@ -47,7 +47,7 @@ class ProductManager {
       if (product) {
         return product;
       } else {
-        console.log("No encontramos el producto solicitado");
+        console.log("Not Found");
       }
     } catch (error) {
       throw error;
@@ -82,8 +82,9 @@ class ProductManager {
       await fs.writeFile(this.path, JSON.stringify(data, null, 2));
       return console.log(data); 
     } catch (error) {
-      console.log('No encontramos el producto!');
+      console.log('Not found');
     }
   }
 }
-const products = new ProductManager("./data.json");
+
+export default ProductManager;
