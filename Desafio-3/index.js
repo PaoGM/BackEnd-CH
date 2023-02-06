@@ -2,11 +2,12 @@ import express from "express";
 
 import ProductManager from "./productManager.js";
 
-const manager = new ProductManager("./data.json");
+const manager = new ProductManager("./Desafio-3/data.json");
 
 const app = express(); 
 
 app.use(express.urlencoded({extended: true})) 
+app.use(express.json());
 
 const PORT = 4000;
 
