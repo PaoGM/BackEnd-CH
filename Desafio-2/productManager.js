@@ -48,6 +48,7 @@ class ProductManager {
     }
   }
 
+  
   async getById(id) {
     try {
       const read = await fs.readFile(this.path, "utf-8");
@@ -99,9 +100,14 @@ const producto1 = new Producto("Prueba", "Producto", 490, "https://google.com.ar
 const productManager = new ProductManager("./data.json");
 
 const tests = async()=>{
-
+  console.log(await productManager.getProducts())
   await productManager.addProduct(producto1)
   console.log(await productManager.getProducts());
+  console.log(await productManager.getById(2));
+  console.log(await productManager.updateProduct(4, "precio", 4500))
+  console.log(await productManager.getById(4))
+  console.log(await productManager.deleteProduct(5));
+
 }
 tests();
 
