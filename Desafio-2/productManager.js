@@ -1,25 +1,34 @@
 import { promises as fs } from "fs";
-
+class Producto {
+  constructor(titulo, descripcion, precio, img, code, stock) {
+      this.titulo = titulo;
+      this.descripcion = descripcion;
+      this.precio = precio;
+      this.img = img;
+      this.code = code;
+      this.stock = stock;
+  }
+}
 class ProductManager {
   constructor(path) {
     this.path = path;
   }
-  async addProduct(object) {
+  async addProduct(newProduct) {
     try {
       const read = await fs.readFile(this.path, "utf8");
       const data = JSON.parse(read);
       const objCode = data.map((product) => product.code);
-      const objExist = objCode.includes(object.code);
+      const objExist = objCode.includes(newProduct.code);
       if (objExist) {
         console.log("Codigo de producto existente, intente otro");
-      } else if (Object.values(object).includes("")) {
+      } else if (Object.values(newProduct).includes("")) {
         console.log(
           "Todos los campos del producto deben estar completos para poder ser ingresado"
         );
       } else {
         let id;
         data.length === 0 ? (id = 1) : (id = data[data.length - 1].id + 1)
-        const newObject = { ...object, id };
+        const newObject = { ...newProduct, id };
         data.push(newObject);
         await fs.writeFile(this.path, JSON.stringify(data, null, 2), "utf-8");
         return console.log(
@@ -86,5 +95,15 @@ class ProductManager {
     }
   }
 }
+const producto1 = new Producto("Prueba", "Producto", 490, "https://google.com.ar", "awd2", 3);
+const productManager = new ProductManager("./data.json");
+
+const tests = async()=>{
+
+  await productManager.addProduct(producto1)
+  console.log(await productManager.getProducts());
+}
+tests();
 
 export default ProductManager;
+
