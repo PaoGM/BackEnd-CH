@@ -95,10 +95,10 @@ class ProductManager {
       console.log('Not found');
     }
   }
-}
+}/*
 const producto1 = new Producto("Prueba", "Producto", 490, "https://google.com.ar", "awd2", 3);
 const productManager = new ProductManager("./data.json");
-/*
+
 const tests = async()=>{
   console.log(await productManager.getProducts())
   await productManager.addProduct(producto1)

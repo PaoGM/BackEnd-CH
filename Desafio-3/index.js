@@ -9,7 +9,7 @@ const app = express();
 app.use(express.urlencoded({extended: true})) 
 app.use(express.json());
 
-const PORT = 4000;
+const PORT = 8080;
 
 app.get("/", (req, res) => {
   res.send("Primer servidor con Express");
@@ -27,11 +27,19 @@ if(limit){
 
 })
 
-app.get("/products/:id", async (req, res)=>{
-const product = await manager.getById(parseInt(req.params.id))
-console.log(product);
-res.send(product)
+app.get("/products/:pid", async (req, res)=>{
+  const productId = parseInt(req.params.pid);
+  const product = await manager.getById(productId);
+  if (!product) {
+    console.error(`El producto con el ID ${productId} no se encontro.`);
+    res.status(404).send(`El producto con el ID ${productId} no se encontro.`);
+    return;
+  }
+  console.log(product);
+  res.send(product);
 })
+
+
 
 app.listen(PORT, () => {
   console.log(`Servidor en puerto ${PORT}`);
